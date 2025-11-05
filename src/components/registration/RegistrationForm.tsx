@@ -5,6 +5,7 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Form } from "@/components/ui/form";
 import { toast } from "sonner";
 import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
 import StudentInfoSection from "./StudentInfoSection";
@@ -89,37 +90,39 @@ const RegistrationForm = ({ onCancel }: RegistrationFormProps) => {
         <Progress value={(currentStep / totalSteps) * 100} className="mt-4" />
       </div>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {currentStep === 1 && <StudentInfoSection form={form} />}
-        {currentStep === 2 && <AdmissionSection form={form} />}
-        {currentStep === 3 && <FinanceSection form={form} />}
-        {currentStep === 4 && <TransportSection form={form} />}
-        {currentStep === 5 && <AdditionalNotesSection form={form} />}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          {currentStep === 1 && <StudentInfoSection form={form} />}
+          {currentStep === 2 && <AdmissionSection form={form} />}
+          {currentStep === 3 && <FinanceSection form={form} />}
+          {currentStep === 4 && <TransportSection form={form} />}
+          {currentStep === 5 && <AdditionalNotesSection form={form} />}
 
-        <div className="flex justify-between gap-4 pt-6">
-          {currentStep > 1 ? (
-            <Button type="button" onClick={prevStep} variant="outline">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Previous
-            </Button>
-          ) : (
-            <Button type="button" onClick={onCancel} variant="outline">
-              Cancel
-            </Button>
-          )}
+          <div className="flex justify-between gap-4 pt-6">
+            {currentStep > 1 ? (
+              <Button type="button" onClick={prevStep} variant="outline">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Previous
+              </Button>
+            ) : (
+              <Button type="button" onClick={onCancel} variant="outline">
+                Cancel
+              </Button>
+            )}
 
-          {currentStep < totalSteps ? (
-            <Button type="button" onClick={nextStep} className="ml-auto bg-primary hover:bg-primary/90">
-              Next
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          ) : (
-            <Button type="submit" className="ml-auto bg-accent hover:bg-accent/90">
-              Submit Registration
-            </Button>
-          )}
-        </div>
-      </form>
+            {currentStep < totalSteps ? (
+              <Button type="button" onClick={nextStep} className="ml-auto bg-primary hover:bg-primary/90">
+                Next
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button type="submit" className="ml-auto bg-accent hover:bg-accent/90">
+                Submit Registration
+              </Button>
+            )}
+          </div>
+        </form>
+      </Form>
     </Card>
   );
 };
